@@ -4,25 +4,26 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.compassofukraine.ui.fragments.NavigationPage
+import com.example.compassofukraine.ui.screen.EventsScreen
+import com.example.compassofukraine.ui.screen.StubScreen
 
 @Composable
 fun BottomNavGraph(navHostController: NavHostController) {
-    NavHost(navController = navHostController, startDestination = BottomBarMenu.Home.route) {
+    NavHost(navController = navHostController, startDestination = BottomBarMenu.Events.route) {
         composable(route = BottomBarMenu.Home.route) {
-            NavigationPage()
+            StubScreen()
         }
         composable(route = BottomBarMenu.Events.route) {
-            NavigationPage()
+            EventsScreen()
         }
         composable(route = BottomBarMenu.Places.route) {
-            NavigationPage()
+            StubScreen()
         }
         composable(route = BottomBarMenu.Excursions.route) {
-            NavigationPage()
+            StubScreen()
         }
         composable(route = BottomBarMenu.Profile.route) {
-            NavigationPage()
+            StubScreen()
         }
     }
 }
