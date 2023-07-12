@@ -2,17 +2,16 @@ package com.example.compassofukraine.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.defaultMinSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
-import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
@@ -22,22 +21,9 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun MainScreen(navHostController: NavHostController = rememberNavController()) {
-    Scaffold(
-        bottomBar = {
-            BottomNavigationBar(navHostController = navHostController)
-        }
-    ) {
-        Modifier.padding(it).wrapContentSize()
-        BottomNavGraph(navHostController = navHostController)
-    }
-}
-
-@Composable
-fun BottomNavigationBar(navHostController: NavHostController) {
+fun BottomBar(navHostController: NavHostController) {
     val screens = listOf(
         BottomBarMenu.Home,
         BottomBarMenu.Events,
@@ -49,7 +35,10 @@ fun BottomNavigationBar(navHostController: NavHostController) {
     val navBackStackEntry by navHostController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
 
-    BottomNavigation() {
+    BottomNavigation(
+        backgroundColor = Color.White,
+        modifier = Modifier.clip(shape = RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp))
+    ) {
         screens.forEach { screen ->
             AddItem(
                 screen = screen,
@@ -71,20 +60,24 @@ fun RowScope.AddItem(
     BottomNavigationItem(
         selected = selected,
         label = {
-            Text(text = screen.title)
+            Text(
+                text = screen.title,
+                style = MaterialTheme.typography.labelSmall,
+                maxLines = 1
+            )
         },
+        selectedContentColor = MaterialTheme.colorScheme.primary,
+        unselectedContentColor = MaterialTheme.colorScheme.secondary,
         icon = {
             Icon(
                 imageVector = ImageVector.vectorResource(
-                    id = if (selected) screen.icon_active else screen.icon_inactive
+                    id = if (selected) screen.iconActive else screen.iconInactive
                 ),
                 contentDescription = screen.title
             )
         },
-        selectedContentColor = Color(0xFFFFD700),
-        unselectedContentColor = Color(0xFF9B9B9B),
-        alwaysShowLabel = false,
-        modifier = Modifier.background(color = Color.White).defaultMinSize(minHeight = 100.dp),
+        alwaysShowLabel = true,
+        modifier = Modifier.background(color = Color.Transparent),
         onClick = {
             navHostController.navigate(screen.route) {
                 popUpTo(navHostController.graph.findStartDestination().id)
