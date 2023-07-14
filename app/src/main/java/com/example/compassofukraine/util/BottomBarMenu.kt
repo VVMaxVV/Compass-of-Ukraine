@@ -1,4 +1,4 @@
-package com.example.compassofukraine.ui
+package com.example.compassofukraine.util
 
 import com.example.compassofukraine.R
 
