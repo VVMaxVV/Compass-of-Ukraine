@@ -5,7 +5,7 @@ import com.example.repository.ExcursionRepository
 import com.example.useCase.GetExcursionUseCase
 
 internal class GetExcursionUseCaseImpl(
-    private val eventsRepository: ExcursionRepository,
+    private val eventsRepository: ExcursionRepository
 ) : GetExcursionUseCase {
     override suspend fun execute(location: Location) = eventsRepository.getExcursion(location)
 }

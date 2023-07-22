@@ -8,5 +8,4 @@ import org.koin.dsl.module
 val viewModelModule = module {
     viewModel { EventsViewModel(get()) }
     viewModel { ExcursionViewModel(get()) }
-
 }

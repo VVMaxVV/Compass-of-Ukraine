@@ -30,38 +30,38 @@ fun ExcursionItem(excursion: Excursion, onClick: (id: Int) -> Unit) {
         shape = CardDefaults.shape,
         onClick = {
             onClick(excursion.id)
-        },
+        }
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(MaterialTheme.colorScheme.surface)
                 .height(100.dp),
-            verticalAlignment = Alignment.CenterVertically,
+            verticalAlignment = Alignment.CenterVertically
         ) {
             Column(
                 Modifier
                     .weight(1f)
-                    .padding(start = 24.dp, end = 20.dp),
+                    .padding(start = 24.dp, end = 20.dp)
             ) {
                 Text(
                     text = excursion.name,
-                    style = MaterialTheme.typography.headlineMedium,
+                    style = MaterialTheme.typography.headlineMedium
                 )
                 Text(
                     text = excursion.distance.toString() + stringResource(id = R.string.km),
-                    style = MaterialTheme.typography.labelSmall,
+                    style = MaterialTheme.typography.labelSmall
                 )
                 Text(
                     text = getExcursionTypeIcon(excursionType = excursion.type),
-                    style = MaterialTheme.typography.labelSmall,
+                    style = MaterialTheme.typography.labelSmall
                 )
             }
             AsyncImage(
                 model = excursion.imageUrl,
                 contentDescription = null,
                 contentScale = ContentScale.FillWidth,
-                modifier = Modifier.weight(1f),
+                modifier = Modifier.weight(1f)
             )
         }
     }
