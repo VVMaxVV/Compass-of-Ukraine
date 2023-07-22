@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Compass of Ukraine</string>
+    <string name="km"> km.</string>
+    <string name="excursion_type_walking">🦶</string>
+    <string name="excursion_type_bicycle">🚴</string>
+    <string name="excursion_type_car">🚗</string>
+    <string name="excursion_type_combine">🦶 🚴 🚗</string>
+
 </resources>
