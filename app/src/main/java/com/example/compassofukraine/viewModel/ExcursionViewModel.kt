@@ -4,7 +4,6 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.model.Event
 import com.example.model.Excursion
 import com.example.model.Location
 import com.example.useCase.GetExcursionUseCase
