@@ -5,6 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.compassofukraine.ui.screen.EventsScreen
+import com.example.compassofukraine.ui.screen.ExcursionScreen
 import com.example.compassofukraine.ui.screen.StubScreen
 
 @Composable
@@ -20,7 +21,7 @@ fun BottomNavGraph(navHostController: NavHostController) {
             StubScreen()
         }
         composable(route = BottomBarMenu.Excursions.route) {
-            StubScreen()
+            ExcursionScreen()
         }
         composable(route = BottomBarMenu.Profile.route) {
             StubScreen()
