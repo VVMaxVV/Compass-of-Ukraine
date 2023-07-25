@@ -22,16 +22,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.compassofukraine.ui.item.EventItem
 import com.example.compassofukraine.viewModel.EventsViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterialApi::class)
-@Preview
 @Composable
-internal fun EventsScreen() {
+internal fun EventsScreen(navigateToEventDetails: (id: Int) -> Unit) {
     val eventsViewModel = koinViewModel<EventsViewModel>()
     val eventsList by remember { eventsViewModel.eventsListState }
     val isLoaded by rememberSaveable { eventsViewModel.isLoaded }
@@ -53,7 +51,7 @@ internal fun EventsScreen() {
         ) {
             items(eventsList) {
                 EventItem(event = it) { id ->
-//                    TODO("Open PDP by id")
+                    navigateToEventDetails(id)
                 }
             }
         }
