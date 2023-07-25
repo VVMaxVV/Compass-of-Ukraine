@@ -2,6 +2,7 @@ package com.example.repository
 
 import com.example.mock.DetailsEventFactory
 import com.example.mock.EventsFactory
+import com.example.model.DetailedEvent
 import com.example.model.Event
 import com.example.model.Location
 import com.example.model.excursion.DetailedEvent
