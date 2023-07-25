@@ -5,6 +5,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.compassofukraine.util.ResultOf
 import com.example.model.DetailedEvent
 import com.example.useCase.AddEventToFavoriteUseCase
 import com.example.useCase.GetDetailsEventsUseCase
@@ -12,7 +13,7 @@ import com.example.useCase.IsEventInFavoriteUseCase
 import com.example.useCase.RemoveEventFromFavoriteUseCase
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import java.util.concurrent.TimeoutException
+import java.net.SocketTimeoutException
 
 class DetailedEventViewModel(
     private val getDetailsEventsUseCase: GetDetailsEventsUseCase,
@@ -20,15 +21,19 @@ class DetailedEventViewModel(
     private val removeEventFromFavoriteUseCase: RemoveEventFromFavoriteUseCase,
     private val isEventInFavoriteUseCase: IsEventInFavoriteUseCase
 ) : ViewModel() {
-    private val _event: MutableState<DetailedEvent?> = mutableStateOf(null)
-    val event: State<DetailedEvent?> get() = _event
+    private val _event: MutableState<ResultOf<DetailedEvent>> = mutableStateOf(ResultOf.Loading)
+    val event: State<ResultOf<DetailedEvent>> get() = _event
 
     private val _isEventInFavorite = mutableStateOf(false)
     val isEventInFavorite: State<Boolean> = _isEventInFavorite
 
     fun fetchEventDetails(id: Int) {
         viewModelScope.launch {
-            _event.value = getDetailsEventsUseCase.execute(id)
+            try {
+                _event.value = ResultOf.Success(getDetailsEventsUseCase.execute(id))
+            } catch (e: SocketTimeoutException) {
+                _event.value = ResultOf.Error(e)
+            }
         }
     }
 
@@ -49,7 +54,7 @@ class DetailedEventViewModel(
             try {
                 _isEventInFavorite.value = true
                 addEventToFavoriteUseCase.execute(id)
-            } catch (e: TimeoutException) {
+            } catch (e: SocketTimeoutException) {
                 _isEventInFavorite.value = false
             }
         }
@@ -61,7 +66,7 @@ class DetailedEventViewModel(
             try {
                 _isEventInFavorite.value = false
                 removeEventFromFavoriteUseCase.execute(id)
-            } catch (e: TimeoutException) {
+            } catch (e: SocketTimeoutException) {
                 _isEventInFavorite.value = true
             }
         }
