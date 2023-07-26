@@ -12,3 +12,6 @@ val Pink40 = Color(0xFF7D5260)
 
 val Yellow = Color(0xFFFFD700)
 val Grey = Color(0xFF9B9B9B)
+
+val ButtonSelectedColor = Color(0xFFFFF2AF)
+val ButtonUnselectedColor = Color(0xFFEFEFEF)
