@@ -158,7 +158,6 @@ private fun ExcursionTypeButton(
                 modifier = Modifier.fillMaxSize(),
 
                 ) {
-            ) {
                 Text(
                     text = buttonIcon,
                     style = TextStyle(color = Color.Black, fontSize = 28.sp),
