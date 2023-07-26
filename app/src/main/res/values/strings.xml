@@ -5,5 +5,8 @@
     <string name="excursion_type_bicycle">🚴</string>
     <string name="excursion_type_car">🚗</string>
     <string name="excursion_type_combine">🦶 🚴 🚗</string>
-
+    <string name="show_on_the_map">Show on the map</string>
+    <string name="all_day_label">All day</string>
+    <string name="time_out_exception_toast">Server connection timed out</string>
+    <string name="something_go_wrong_toast">Something go wrong</string>
 </resources>

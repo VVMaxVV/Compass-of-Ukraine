@@ -10,6 +10,9 @@ import androidx.compose.material.Text
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -36,16 +39,27 @@ fun BottomBar(navHostController: NavHostController) {
     val navBackStackEntry by navHostController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
 
-    BottomNavigation(
-        backgroundColor = Color.White,
-        modifier = Modifier.clip(shape = RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp))
-    ) {
-        screens.forEach { screen ->
-            AddItem(
-                screen = screen,
-                currentDestination = currentDestination,
-                navHostController = navHostController
-            )
+    var isBottomBarVisible by remember { mutableStateOf(true) }
+
+    if (isBottomBarVisible) {
+        BottomNavigation(
+            backgroundColor = Color.White,
+            modifier = Modifier.clip(shape = RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp))
+        ) {
+            screens.forEach { screen ->
+                AddItem(
+                    screen = screen,
+                    currentDestination = currentDestination,
+                    navHostController = navHostController
+                )
+            }
+        }
+    }
+
+    navHostController.addOnDestinationChangedListener { _, destination, _ ->
+        isBottomBarVisible = when (destination.route) {
+            "event/{id}" -> false
+            else -> true
         }
     }
 }

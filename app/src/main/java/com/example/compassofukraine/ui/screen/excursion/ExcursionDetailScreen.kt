@@ -157,7 +157,7 @@ private fun ExcursionTypeButton(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.fillMaxSize(),
 
-            ) {
+                ) {
                 Text(
                     text = buttonIcon,
                     style = TextStyle(color = Color.Black, fontSize = 28.sp),
