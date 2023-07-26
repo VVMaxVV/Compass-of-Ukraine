@@ -7,6 +7,6 @@ import com.example.repository.ExcursionRepositoryImpl
 import org.koin.dsl.module
 
 val repositoryModule = module {
-    single<EventsRepository> { EventsRepositoryImpl(get()) }
+    single<EventsRepository> { EventsRepositoryImpl(get(), get()) }
     single<ExcursionRepository> { ExcursionRepositoryImpl(get()) }
 }
