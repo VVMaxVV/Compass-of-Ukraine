@@ -30,7 +30,7 @@ fun BottomNavGraph(navHostController: NavHostController) {
                 }
             }
         }
-        composable(route = BottomBarMenu.Places.route) {
+        composable(route = BottomBarMenu.Hotspots.route) {
             StubScreen()
         }
         composable(route = BottomBarMenu.Excursions.route) {
