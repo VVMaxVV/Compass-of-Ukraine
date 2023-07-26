@@ -1,4 +1,4 @@
-package com.example.compassofukraine.viewModel
+package com.example.compassofukraine.viewModel.excursion
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
@@ -10,7 +10,7 @@ import com.example.useCase.GetExcursionUseCase
 import kotlinx.coroutines.launch
 
 class ExcursionViewModel(
-    private val getEventsUseCase: GetExcursionUseCase
+    private val getExcursionUseCase: GetExcursionUseCase
 ) : ViewModel() {
 
     private val _excursionsListState = mutableStateOf<List<Excursion>>(emptyList())
@@ -26,7 +26,7 @@ class ExcursionViewModel(
     fun fetchExcursions() {
         viewModelScope.launch {
             _isLoaded.value = true
-            _excursionsListState.value = getEventsUseCase.execute(Location.Kharkiv)
+            _excursionsListState.value = getExcursionUseCase.execute(Location.Kharkiv)
             _isLoaded.value = false
         }
     }
