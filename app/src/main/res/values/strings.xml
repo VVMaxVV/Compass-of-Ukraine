@@ -9,4 +9,10 @@
     <string name="all_day_label">All day</string>
     <string name="time_out_exception_toast">Server connection timed out</string>
     <string name="something_go_wrong_toast">Something go wrong</string>
+    <string name="car_icon">🚗</string>
+    <string name="bicycle_icon">🚴</string>
+    <string name="walking_icon">🚶</string>
+    <string name="start_excursion">Start excursion</string>
+
+
 </resources>

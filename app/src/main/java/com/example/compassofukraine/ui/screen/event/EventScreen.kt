@@ -24,7 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.compassofukraine.ui.item.EventItem
-import com.example.compassofukraine.viewModel.EventsViewModel
+import com.example.compassofukraine.viewModel.event.EventsViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterialApi::class)

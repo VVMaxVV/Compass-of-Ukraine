@@ -1,4 +1,4 @@
-package com.example.useCase
+package com.example.useCase.excursion
 
 import com.example.model.Excursion
 import com.example.model.Location

@@ -1,79 +1,246 @@
 package com.example.compassofukraine.ui.screen.excursion
 
 import androidx.compose.animation.animateColorAsState
-import androidx.compose.animation.core.*
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CornerSize
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Shapes
 import androidx.compose.material.Text
+import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role.Companion.Image
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.constraintlayout.compose.ExperimentalMotionApi
+import androidx.constraintlayout.compose.MotionLayout
+import androidx.constraintlayout.compose.MotionScene
+import androidx.constraintlayout.compose.rememberMotionLayoutState
+import com.example.compassofukraine.R
 import com.example.compassofukraine.ui.theme.ButtonSelectedColor
 import com.example.compassofukraine.ui.theme.ButtonUnselectedColor
+import com.example.compassofukraine.util.ResultOf
+import com.example.compassofukraine.util.map.toLatLng
+import com.example.compassofukraine.util.ui.Carousel
+import com.example.compassofukraine.util.ui.DragIndicator
+import com.example.compassofukraine.util.ui.FavoriteButton
+import com.example.compassofukraine.util.ui.ShowToast
+import com.example.compassofukraine.util.ui.shimmerBrush
 import com.example.compassofukraine.viewModel.excursion.ExcursionDetailViewModel
+import com.example.model.ExcursionType
+import com.example.model.excursion.DetailedExcursion
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.PolylineOptions
-import com.google.maps.android.compose.MapProperties
-import com.google.maps.android.compose.MapType
-import com.google.maps.android.compose.MapUiSettings
 import org.koin.androidx.compose.koinViewModel
+import java.net.SocketTimeoutException
 
-@OptIn(ExperimentalMaterialApi::class)
-@Preview
+@OptIn(ExperimentalMotionApi::class)
 @Composable
-internal fun ExcursionDetailScreen() {
-    val viewModel = koinViewModel<ExcursionDetailViewModel>()
-    val isLoaded by rememberSaveable { viewModel.isLoaded }
+internal fun ExcursionDetailScreen(id: Int) {
+    val motionLayoutState = rememberMotionLayoutState()
+    val context = LocalContext.current
+    val motionScene = remember {
+        context.resources.openRawResource(R.raw.excursion_details).readBytes().decodeToString()
+    }
+    val detailedExcursionViewModel =
+        koinViewModel<ExcursionDetailViewModel>()
+    val excursion by remember { detailedExcursionViewModel.excursion }
+    val isFavoriteChecked by remember { detailedExcursionViewModel.isExcursionInFavorite }
 
-    var uiSettings by remember { mutableStateOf(MapUiSettings()) }
-    var properties by remember {
-        mutableStateOf(MapProperties(mapType = MapType.SATELLITE))
+    LaunchedEffect(Unit) {
+        detailedExcursionViewModel.fetchExcursionDetails(id)
     }
 
-    Column(
+    MotionLayout(
+        motionScene = MotionScene(motionScene),
+        motionLayoutState = motionLayoutState,
         modifier = Modifier
-            .verticalScroll(rememberScrollState()),
+            .fillMaxWidth()
+            .background(MaterialTheme.colorScheme.background)
+            .fillMaxHeight()
     ) {
-        ExcursionTypeBar()
-
-        MapWithRoute()
+        Carousel(
+            listUrl = (excursion as? ResultOf.Success<DetailedExcursion>)?.data?.imagesUrl,
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(210.dp)
+                .layoutId("carousel")
+        )
+        Box(
+            modifier = Modifier
+                .background(MaterialTheme.colorScheme.surface)
+                .fillMaxWidth()
+                .layoutId("container_details")
+        ) {
+            Column() {
+                Box(
+                    modifier = Modifier
+                        .padding(top = 12.dp, bottom = 28.dp)
+                        .fillMaxWidth(),
+                    contentAlignment = Alignment.TopCenter
+                ) {
+                    DragIndicator()
+                }
+                ExcursionDetailedContent(excursionDetailedResult = excursion)
+            }
+        }
+        Box(modifier = Modifier.layoutId("button_favorite")) {
+            if (excursion is ResultOf.Success) {
+                FavoriteButton(isFavoriteChecked) {
+                    if (motionLayoutState.currentProgress != 1f) {
+                        detailedExcursionViewModel.updateFavorite(id)
+                    }
+                }
+            }
+        }
     }
 }
 
 @Composable
-fun MapWithRoute() {
-    val context = LocalContext.current
+fun ExcursionDetailedContent(excursionDetailedResult: ResultOf<DetailedExcursion>) {
+    when (excursionDetailedResult) {
+        is ResultOf.Success -> ExcursionDetailLoaded(excursionDetailedResult.data)
 
+        is ResultOf.Loading -> ExcursionDetailLoading()
+
+        is ResultOf.Error -> ExcursionDetailError(excursionDetailedResult.exception)
+    }
+}
+
+@Composable
+fun ExcursionDetailLoaded(excursion: DetailedExcursion) {
+    LazyColumn(modifier = Modifier.fillMaxSize()) {
+        item {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.Top
+            ) {
+                Column {
+                    androidx.compose.material3.Text(
+                        text = excursion.name,
+                        style = MaterialTheme.typography.headlineMedium,
+                        maxLines = 3,
+                        modifier = Modifier.fillMaxWidth(.5f)
+                    )
+                }
+                Column(horizontalAlignment = Alignment.End) {
+                    androidx.compose.material3.Text(
+                        text = excursion.distance.toString() + stringResource(id = R.string.km),
+                        style = MaterialTheme.typography.bodyLarge
+                    )
+                }
+            }
+            androidx.compose.material3.Text(
+                text = excursion.description,
+                style = MaterialTheme.typography.bodyMedium,
+                modifier = Modifier.padding(top = 24.dp, start = 16.dp, end = 16.dp)
+            )
+            when (excursion.type) {
+                ExcursionType.BICYCLE -> MapWithRoute(excursion.bicycleCoordinates.toLatLng())
+                ExcursionType.WALKING -> MapWithRoute(excursion.walkingCoordinates.toLatLng())
+                ExcursionType.CAR -> MapWithRoute(excursion.carCoordinates.toLatLng())
+                ExcursionType.COMBINE -> ExcursionTypeBar(excursion)
+            }
+            Button(
+                modifier = Modifier
+                    .padding(top = 20.dp, bottom = 10.dp)
+                    .padding(horizontal = 10.dp)
+                    .fillMaxWidth(),
+                onClick = {
+                }
+            ) {
+                androidx.compose.material3.Text(text = stringResource(id = R.string.start_excursion))
+            }
+        }
+    }
+}
+
+@Composable
+fun ExcursionDetailLoading() {
+    Column(Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.Top
+        ) {
+            Column {
+                androidx.compose.material3.Text(
+                    text = "",
+                    style = MaterialTheme.typography.headlineMedium,
+                    modifier = Modifier
+                        .fillMaxWidth(.5f)
+                        .background(Brush.shimmerBrush())
+                )
+            }
+            Column(horizontalAlignment = Alignment.End) {
+                androidx.compose.material3.Text(
+                    text = "",
+                    style = MaterialTheme.typography.bodyLarge,
+                    modifier = Modifier
+                        .fillMaxWidth(.5f)
+                        .background(Brush.shimmerBrush())
+                )
+            }
+        }
+        Box(
+            modifier = Modifier
+                .padding(top = 24.dp, start = 16.dp, end = 16.dp)
+                .fillMaxWidth()
+                .height(300.dp)
+                .background(Brush.shimmerBrush())
+        )
+    }
+}
+
+@Composable
+fun ExcursionDetailError(error: Exception) {
+    when (error) {
+        is SocketTimeoutException -> {
+            ShowToast(message = stringResource(id = R.string.time_out_exception_toast))
+        }
+        else -> {
+            ShowToast(message = stringResource(id = R.string.something_go_wrong_toast))
+        }
+    }
+}
+
+@Composable
+fun MapWithRoute(points: List<LatLng>) {
     AndroidView(
         modifier = Modifier.fillMaxSize(),
         factory = { context ->
@@ -81,20 +248,9 @@ fun MapWithRoute() {
                 onCreate(null)
             }
             map
-        },
+        }
     ) { mapView ->
         mapView.getMapAsync { googleMap ->
-            // Set up the map settings, markers, etc.
-
-            // Define the list of coordinates (LatLng) for the route points.
-            val points = listOf(
-                LatLng(37.7749, -122.4194), // Origin
-                LatLng(37.3352, -121.8811), // Waypoint 1
-                LatLng(38.5816, -121.4944), // Waypoint 2
-                LatLng(37.7749, -122.4194), // Destination
-            )
-
-            // Draw the polyline on the map.
             val polylineOptions = PolylineOptions()
                 .addAll(points)
                 .color(android.graphics.Color.BLUE)
@@ -104,16 +260,64 @@ fun MapWithRoute() {
 }
 
 @Composable
-private fun ExcursionTypeBar() {
-    val expandedButtonIndex = remember { mutableStateOf(-1) }
+private fun ExcursionTypeBar(excursion: DetailedExcursion) {
+    val expandedButtonIndex = remember { mutableStateOf(1) }
+    Column {
+        Row(
+            modifier = Modifier.fillMaxWidth().padding(vertical = 30.dp),
+            horizontalArrangement = Arrangement.SpaceEvenly
+        ) {
+            ExcursionTypeButton(
+                expandedButtonIndex,
+                0,
+                excursion.carTime.toString(),
+                stringResource(id = R.string.car_icon)
+            )
+            ExcursionTypeButton(
+                expandedButtonIndex,
+                1,
+                excursion.bicycleTime.toString(),
+                stringResource(id = R.string.bicycle_icon)
+            )
+            ExcursionTypeButton(
+                expandedButtonIndex,
+                2,
+                excursion.walkingTime.toString(),
+                stringResource(id = R.string.walking_icon)
+            )
+        }
+        // TODO("Teporary decicion, until we will receive map API key")
 
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceEvenly,
-    ) {
-        ExcursionTypeButton(expandedButtonIndex, 0, "Button 1", "\uD83D\uDE97")
-        ExcursionTypeButton(expandedButtonIndex, 1, "Button 2", "\uD83D\uDE97")
-        ExcursionTypeButton(expandedButtonIndex, 2, "Button 3", "\uD83D\uDE97")
+        when (expandedButtonIndex.value) {
+            0 -> Image(
+                painter = painterResource(id = R.drawable.mocked_car_map),
+                contentDescription = "Card mocked map",
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+                    .padding(top = 10.dp)
+                    .height(350.dp).width(350.dp)
+            )
+            1 -> {
+                Image(
+                    painter = painterResource(id = R.drawable.mocked_walking_map),
+                    contentDescription = "Bicycle mocked map",
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                        .padding(top = 10.dp)
+                        .height(350.dp).width(350.dp)
+                )
+            }
+            2 -> {
+                Image(
+                    painter = painterResource(id = R.drawable.mocked_car_map),
+                    contentDescription = "Walking mocked map",
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                        .padding(top = 10.dp)
+                        .height(350.dp).width(350.dp)
+                )
+            }
+        }
     }
 }
 
@@ -122,7 +326,7 @@ private fun ExcursionTypeButton(
     expandedButtonIndex: MutableState<Int>,
     buttonIndex: Int,
     buttonText: String,
-    buttonIcon: String,
+    buttonIcon: String
 ) {
     val isExpanded = expandedButtonIndex.value == buttonIndex
     val isNeedExpansion = remember { mutableStateOf(false) }
@@ -140,34 +344,34 @@ private fun ExcursionTypeButton(
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.padding(18.dp),
+        modifier = Modifier.padding(18.dp)
     ) {
         Box(
             modifier = Modifier
                 .background(
                     color = backgroundColor,
-                    shape = Shapes().medium.copy(all = CornerSize(16.dp)),
+                    shape = Shapes().medium.copy(all = CornerSize(16.dp))
                 )
-                .height(150.dp).width(animatedWidthDp).clickable {
+                .height(120.dp).width(animatedWidthDp).clickable {
                     expandedButtonIndex.value = buttonIndex
-                },
+                }
         ) {
             Column(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier.fillMaxSize()
 
-                ) {
+            ) {
                 Text(
                     text = buttonIcon,
                     style = TextStyle(color = Color.Black, fontSize = 28.sp),
-                    modifier = Modifier.padding(16.dp),
+                    modifier = Modifier.padding(6.dp)
                 )
                 if (isNeedExpansion.value) {
                     Text(
                         text = buttonText,
                         style = TextStyle(color = Color.Black, fontSize = 18.sp),
-                        modifier = Modifier.padding(16.dp),
+                        modifier = Modifier.padding(6.dp)
                     )
                 }
             }

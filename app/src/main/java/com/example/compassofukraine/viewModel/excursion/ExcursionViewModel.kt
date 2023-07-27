@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.model.Excursion
 import com.example.model.Location
-import com.example.useCase.GetExcursionUseCase
+import com.example.useCase.excursion.GetExcursionUseCase
 import kotlinx.coroutines.launch
 
 class ExcursionViewModel(

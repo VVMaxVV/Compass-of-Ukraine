@@ -1,4 +1,4 @@
-package com.example.compassofukraine.viewModel
+package com.example.compassofukraine.viewModel.event
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
@@ -6,7 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.compassofukraine.util.ResultOf
-import com.example.model.DetailedEvent
+import com.example.model.excursion.DetailedEvent
 import com.example.useCase.AddEventToFavoriteUseCase
 import com.example.useCase.GetDetailsEventsUseCase
 import com.example.useCase.IsEventInFavoriteUseCase
