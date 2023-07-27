@@ -1,4 +1,4 @@
-package com.example.compassofukraine.viewModel.event
+package com.example.compassofukraine.viewModel
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State

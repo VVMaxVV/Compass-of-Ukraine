@@ -11,4 +11,5 @@ val mockModule = module {
     single { ExcursionFactory() }
     single { DetailsEventFactory() }
     single { DetailsExcursionFactory() }
+
 }

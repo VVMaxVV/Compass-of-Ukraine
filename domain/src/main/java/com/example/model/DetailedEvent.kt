@@ -1,8 +1,5 @@
-package com.example.model.excursion
+package com.example.model
 
-import com.example.model.EventTime
-import com.example.model.GeoPosition
-import com.example.model.MediaLinks
 import java.time.LocalDate
 
 data class DetailedEvent(
@@ -17,3 +14,4 @@ data class DetailedEvent(
     val imagesUrl: List<String>,
     val mediaLinks: MediaLinks
 )
+

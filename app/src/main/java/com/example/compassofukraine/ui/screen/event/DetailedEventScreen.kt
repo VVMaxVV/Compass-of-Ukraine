@@ -41,7 +41,7 @@ import com.example.compassofukraine.util.ui.ShowToast
 import com.example.compassofukraine.util.ui.shimmerBrush
 import com.example.compassofukraine.viewModel.event.DetailedEventViewModel
 import com.example.model.EventTime
-import com.example.model.excursion.DetailedEvent
+import com.example.model.DetailedEvent
 import org.koin.androidx.compose.koinViewModel
 import java.net.SocketTimeoutException
 
