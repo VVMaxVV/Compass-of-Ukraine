@@ -1,5 +1,8 @@
-package com.example.model
+package com.example.model.excursion
 
+import com.example.model.EventTime
+import com.example.model.GeoPosition
+import com.example.model.MediaLinks
 import java.time.LocalDate
 
 data class DetailedEvent(

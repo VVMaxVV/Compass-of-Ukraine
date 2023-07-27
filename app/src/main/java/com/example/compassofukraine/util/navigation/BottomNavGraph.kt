@@ -34,11 +34,20 @@ fun BottomNavGraph(navHostController: NavHostController) {
         composable(route = BottomBarMenu.Hotspots.route) {
             StubScreen()
         }
-        composable(route = BottomBarMenu.Excursions.route) {
-            ExcursionListScreen()
+        navigation(startDestination = "excursionList", route = BottomBarMenu.Excursions.route) {
+            composable(route = "excursionList") {
+                ExcursionListScreen {
+                    navHostController.navigate("excursion/$it")
+                }
+            }
+            composable(route = "excursion/{id}", arguments = listOf(navArgument("id") { type = NavType.IntType })) {
+                it.arguments?.let { it ->
+                    ExcursionDetailScreen(it.getInt("id"))
+                }
+            }
         }
         composable(route = BottomBarMenu.Profile.route) {
-            ExcursionDetailScreen()
+            StubScreen()
         }
     }
 }

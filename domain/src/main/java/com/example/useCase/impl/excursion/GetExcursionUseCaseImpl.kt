@@ -1,8 +1,8 @@
-package com.example.useCase.impl
+package com.example.useCase.impl.excursion
 
 import com.example.model.Location
 import com.example.repository.ExcursionRepository
-import com.example.useCase.GetExcursionUseCase
+import com.example.useCase.excursion.GetExcursionUseCase
 
 internal class GetExcursionUseCaseImpl(
     private val eventsRepository: ExcursionRepository

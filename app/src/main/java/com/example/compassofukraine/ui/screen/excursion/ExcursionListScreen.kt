@@ -22,16 +22,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.compassofukraine.ui.item.ExcursionItem
 import com.example.compassofukraine.viewModel.excursion.ExcursionViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterialApi::class)
-@Preview
 @Composable
-internal fun ExcursionListScreen() {
+internal fun ExcursionListScreen(navigateToEventDetails: (id: Int) -> Unit) {
     val excursionViewModel = koinViewModel<ExcursionViewModel>()
     val excursionList by remember { excursionViewModel.excursionsListState }
     val isLoaded by rememberSaveable { excursionViewModel.isLoaded }
@@ -53,7 +51,7 @@ internal fun ExcursionListScreen() {
         ) {
             items(excursionList) {
                 ExcursionItem(excursion = it) { id ->
-                    //   TODO("Open EDP by id")
+                    navigateToEventDetails(id)
                 }
             }
         }

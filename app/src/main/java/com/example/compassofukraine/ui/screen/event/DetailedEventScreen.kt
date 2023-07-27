@@ -39,9 +39,9 @@ import com.example.compassofukraine.util.ui.DragIndicator
 import com.example.compassofukraine.util.ui.FavoriteButton
 import com.example.compassofukraine.util.ui.ShowToast
 import com.example.compassofukraine.util.ui.shimmerBrush
-import com.example.compassofukraine.viewModel.DetailedEventViewModel
-import com.example.model.DetailedEvent
+import com.example.compassofukraine.viewModel.event.DetailedEventViewModel
 import com.example.model.EventTime
+import com.example.model.excursion.DetailedEvent
 import org.koin.androidx.compose.koinViewModel
 import java.net.SocketTimeoutException
 
