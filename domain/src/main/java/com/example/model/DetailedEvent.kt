@@ -14,4 +14,3 @@ data class DetailedEvent(
     val imagesUrl: List<String>,
     val mediaLinks: MediaLinks
 )
-

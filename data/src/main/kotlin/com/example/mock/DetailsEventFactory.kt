@@ -1,11 +1,9 @@
 package com.example.mock
 
-
+import com.example.model.DetailedEvent
 import com.example.model.EventTime
 import com.example.model.GeoPosition
 import com.example.model.MediaLinks
-import com.example.model.DetailedEvent
-
 import kotlinx.coroutines.delay
 import java.time.LocalDate
 import java.time.Month

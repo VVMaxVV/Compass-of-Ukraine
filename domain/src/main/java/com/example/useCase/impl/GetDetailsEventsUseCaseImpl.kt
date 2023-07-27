@@ -4,7 +4,6 @@ import com.example.model.DetailedEvent
 import com.example.repository.EventsRepository
 import com.example.useCase.GetDetailsEventsUseCase
 
-
 internal class GetDetailsEventsUseCaseImpl(
     private val eventsRepository: EventsRepository
 ) : GetDetailsEventsUseCase {
