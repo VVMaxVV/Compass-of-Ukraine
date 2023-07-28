@@ -14,7 +14,6 @@ data class DetailedExcursion(
     val walkingCoordinates: List<GeoPosition>,
     val bicycleCoordinates: List<GeoPosition>,
     val carCoordinates: List<GeoPosition>,
-
     val walkingTime: Time?,
     val bicycleTime: Time?,
     val carTime: Time?
