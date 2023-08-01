@@ -18,8 +18,7 @@ internal class ExcursionFactory(private val context: Context) {
                     distance = 24.0F,
                     type = ExcursionType.WALKING,
                     imageUrl = "https://s.zagranitsa.com/images/articles/4825/870x486/be14d668a1985e0e5f70252b7f248dac.jpg?1477899992",
-                    description = "    Kharkiv City Day is an annual celebration that pays tribute to the vibrant and historic city of Kharkiv, Ukraine. This joyous occasion brings together locals and visitors from around the world to commemorate the rich cultural heritage, achievements, and progress of Kharkiv.\n" +
-                        "    During the festivities, the streets come alive with an array of colorful decorations, captivating performances, and lively music that resonates throughout the city. The event showcases the city's diverse artistic talent, including captivating dance troupes, captivating musical performances, and awe-inspiring theatrical shows."
+                    description = context.getString(R.string.excursion_1_description)
                 ),
                 Excursion(
                     id = 0,
