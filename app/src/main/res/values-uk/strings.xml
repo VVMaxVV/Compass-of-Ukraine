@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="km"> км.</string>
+    <string name="show_on_the_map">Показати на мапі</string>
+    <string name="all_day_label">Весь день</string>
+    <string name="time_out_exception_toast">Час підключення до серверу вичерпано</string>
+    <string name="something_go_wrong_toast">Щось пішло не так</string>
+    <string name="bottom_bar_home_title">Головна</string>
+    <string name="bottom_bar_events_title">Події</string>
+    <string name="bottom_bar_hotspots_title">Локації</string>
+    <string name="bottom_bar_excursions_title">Екскурсії</string>
+    <string name="bottom_bar_profile_title">Профіль</string>
+</resources>

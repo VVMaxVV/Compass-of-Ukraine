@@ -1,12 +1,20 @@
 <resources>
-    <string name="app_name">Compass of Ukraine</string>
+    <string name="app_name" translatable="false">Compass of Ukraine</string>
     <string name="km"> km.</string>
-    <string name="excursion_type_walking">🦶</string>
-    <string name="excursion_type_bicycle">🚴</string>
-    <string name="excursion_type_car">🚗</string>
-    <string name="excursion_type_combine">🦶 🚴 🚗</string>
+    <string name="excursion_type_walking" translatable="false">🦶</string>
+    <string name="excursion_type_bicycle" translatable="false">🚴</string>
+    <string name="excursion_type_car" translatable="false">🚗</string>
+    <string name="excursion_type_combine" translatable="false">🦶 🚴 🚗</string>
     <string name="show_on_the_map">Show on the map</string>
     <string name="all_day_label">All day</string>
     <string name="time_out_exception_toast">Server connection timed out</string>
     <string name="something_go_wrong_toast">Something go wrong</string>
+    <string name="bottom_bar_home_title">Home</string>
+    <string name="bottom_bar_events_title">Events</string>
+    <string name="bottom_bar_hotspots_title">Hotspots</string>
+    <string name="bottom_bar_excursions_title">Excursions</string>
+    <string name="bottom_bar_profile_title">Profile</string>
+    <string name="event_title" translatable="false">Kharkiv City Day</string>
+    <string name="event_short_description" translatable="false">Celebration</string>
+    <string name="event_description" translatable="false">Kharkiv City Day is an annual celebration that pays tribute to the vibrant and historic city of Kharkiv, Ukraine. This joyous occasion brings together locals and visitors from around the world to commemorate the rich cultural heritage, achievements, and progress of Kharkiv.\n During the festivities, the streets come alive with an array of colorful decorations, captivating performances, and lively music that resonates throughout the city. The event showcases the citys diverse artistic talent, including captivating dance troupes, captivating musical performances, and awe-inspiring theatrical shows.\n</string>
 </resources>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="event_title" translatable="false">Kharkiv City Day</string>
+    <string name="event_short_description">Celebration</string>
+    <string name="event_description">\tKharkiv City Day is an annual celebration that pays tribute to the vibrant and historic city of Kharkiv, Ukraine. This joyous occasion brings together locals and visitors from around the world to commemorate the rich cultural heritage, achievements, and progress of Kharkiv.\n During the festivities, the streets come alive with an array of colorful decorations, captivating performances, and lively music that resonates throughout the city. The event showcases the city`s diverse artistic talent, including captivating dance troupes, captivating musical performances, and awe-inspiring theatrical shows.\n</string>
+    <string name="event_1_title">Okean Elzy</string>
+    <string name="event_1_description">Word tour 2024</string>
+    <string name="event_2_title">95 Kvartal</string>
+    <string name="event_2_description">Stand up</string>
+    <string name="event_3_title">Dacha bracha</string>
+    <string name="event_3_description">Concert</string>
+    <string name="event_4_title">Kharkiv City Day</string>
+    <string name="event_4_description">Celebration</string>
+    <string name="event_5_title">Zhadan i sobaky</string>
+    <string name="event_5_description">Concert</string>
+    <string name="excursion_1_title">Unexplored Kyiv</string>
+    <string name="excursion_2_title">Beketov\'s houses</string>
+    <string name="excursion_3_title">Cossack places</string>
+    <string name="excursion_4_title">Futuristic Kyiv</string>
+    <string name="excursion_5_title">Ancient Ukraine</string>
+    <string name="excursion_1_description">\tKharkiv City Day is an annual celebration that pays tribute to the vibrant and historic city of Kharkiv, Ukraine. This joyous occasion brings together locals and visitors from around the world to commemorate the rich cultural heritage, achievements, and progress of Kharkiv.\n During the festivities, the streets come alive with an array of colorful decorations, captivating performances, and lively music that resonates throughout the city. The event showcases the city is diverse artistic talent, including captivating dance troupes, captivating musical performances, and awe-inspiring theatrical shows.\n</string>
+
+</resources>

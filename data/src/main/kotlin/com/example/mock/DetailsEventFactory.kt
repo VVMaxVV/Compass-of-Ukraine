@@ -1,27 +1,27 @@
 package com.example.mock
 
+import android.content.Context
+import com.example.data.R
 import com.example.model.DetailedEvent
 import com.example.model.EventTime
 import com.example.model.GeoPosition
 import com.example.model.MediaLinks
-import kotlinx.coroutines.delay
 import java.time.LocalDate
 import java.time.Month
+import kotlinx.coroutines.delay
 
-internal class DetailsEventFactory {
+internal class DetailsEventFactory(private val context: Context) {
     suspend fun get(id: Int): DetailedEvent {
         delay(1000)
         return DetailedEvent(
             id = id,
-            title = "Kharkiv City Day",
-            shortDescription = "Celebration",
+            title = context.getString(R.string.event_title),
+            shortDescription = context.getString(R.string.event_short_description),
             dateStart = LocalDate.of(2023, Month.AUGUST, 23),
             dateFinish = null,
             eventTime = EventTime.AllDay,
-            description = "    Kharkiv City Day is an annual celebration that pays tribute to the vibrant and historic city of Kharkiv, Ukraine. This joyous occasion brings together locals and visitors from around the world to commemorate the rich cultural heritage, achievements, and progress of Kharkiv.\n" +
-                "    During the festivities, the streets come alive with an array of colorful decorations, captivating performances, and lively music that resonates throughout the city. The event showcases the city's diverse artistic talent, including captivating dance troupes, captivating musical performances, and awe-inspiring theatrical shows.\n" +
-                "    Kharkiv City Day is an annual celebration that pays tribute to the vibrant and historic city of Kharkiv, Ukraine. This joyous occasion brings together locals and visitors from around the world to commemorate the rich cultural heritage, achievements, and progress of Kharkiv.\n" +
-                "    During the festivities, the streets come alive with an array of colorful decorations, captivating performances, and lively music that resonates throughout the city. The event showcases the city's diverse artistic talent, including captivating dance troupes, captivating musical performances, and awe-inspiring theatrical shows.",
+            description = context.getString(R.string.event_description) +
+                    "\n" + context.getString(R.string.event_description),
             coordinates = GeoPosition(50.00457842801801, 36.233972769529544),
             mediaLinks = MediaLinks(),
             imagesUrl = listOf(

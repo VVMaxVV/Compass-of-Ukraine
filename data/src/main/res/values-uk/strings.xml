@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="event_title" translatable="false">День міста Харків</string>
+    <string name="event_short_description">Святкування</string>
+    <string name="event_description">\tДень міста Харків - щорічне святкування, що вшановує живописне і історичне місто Харків, Україна. Ця радісна подія збирає місцевих жителів та гостей з усього світу, щоб вшанувати багату культурну спадщину, досягнення та прогрес Харкова.\n Протягом святкувань вулиці оживають різнокольоровими прикрасами, захоплюючими виставами та живою музикою, яка лунає по всьому місту. Подія демонструє різноманітний художній талант міста, включаючи захоплюючі танцювальні колективи, захоплюючі музичні виступи та захоплюючі театральні шоу.</string>
+    <string name="event_1_title">Океан Ельзи</string>
+    <string name="event_1_description">Світове турне 2024</string>
+    <string name="event_2_title">95 Квартал</string>
+    <string name="event_2_description">Stand up</string>
+    <string name="event_3_title">Дача брача</string>
+    <string name="event_3_description">Концерт</string>
+    <string name="event_4_title">День міста Харків</string>
+    <string name="event_4_description">Святкування</string>
+    <string name="event_5_title">Жадан і собаки</string>
+    <string name="event_5_description">Концерт</string>
+    <string name="excursion_1_title">Невідкритий Київ</string>
+    <string name="excursion_2_title">Будинки Бекетова</string>
+    <string name="excursion_3_title">Козацькі місця</string>
+    <string name="excursion_4_title">Майбутній Київ</string>
+    <string name="excursion_5_title">Стародавня Україна</string>
+    <string name="excursion_1_description">\tДень міста Харків - щорічне святкування, що вшановує живописне і історичне місто Харків, Україна. Ця радісна подія збирає місцевих жителів та гостей з усього світу, щоб вшанувати багату культурну спадщину, досягнення та прогрес Харкова.\n Протягом святкувань вулиці оживають різнокольоровими прикрасами, захоплюючими виставами та живою музикою, яка лунає по всьому місту. Подія демонструє різноманітний художній талант міста, включаючи захоплюючі танцювальні колективи, захоплюючі музичні виступи та захоплюючі театральні шоу.</string>
+</resources>

@@ -16,6 +16,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination
@@ -76,7 +77,7 @@ fun RowScope.AddItem(
         selected = selected,
         label = {
             Text(
-                text = screen.title,
+                text = stringResource(id = screen.titleId),
                 style = MaterialTheme.typography.titleSmall,
                 maxLines = 1
             )
@@ -86,7 +87,7 @@ fun RowScope.AddItem(
                 imageVector = ImageVector.vectorResource(
                     id = screen.icon
                 ),
-                contentDescription = screen.title
+                contentDescription = stringResource(id = screen.titleId)
             )
         },
         alwaysShowLabel = true,
