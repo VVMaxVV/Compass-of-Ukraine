@@ -9,11 +9,8 @@ import com.example.model.excursion.DetailedExcursion
 internal class ExcursionRepositoryImpl(
     private val excursionFactory: ExcursionFactory,
     private val excursionDetailedFactory: DetailsExcursionFactory
-
 ) : ExcursionRepository {
     override suspend fun getExcursion(location: Location): List<Excursion> =
         excursionFactory.get(location)
-
-    override suspend fun getExcursionById(id: Int): Excursion = excursionFactory.getById(id)
-    override suspend fun getDetailsExcursion(id: Int): DetailedExcursion = excursionDetailedFactory.getById(id)
+    override suspend fun getDetailsExcursion(id: Int): DetailedExcursion = excursionDetailedFactory.get(id)
 }

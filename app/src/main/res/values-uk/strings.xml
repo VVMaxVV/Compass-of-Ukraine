@@ -10,4 +10,5 @@
     <string name="bottom_bar_hotspots_title">Локації</string>
     <string name="bottom_bar_excursions_title">Екскурсії</string>
     <string name="bottom_bar_profile_title">Профіль</string>
+    <string name="start_excursion">Розпочати екскурсію</string>
 </resources>

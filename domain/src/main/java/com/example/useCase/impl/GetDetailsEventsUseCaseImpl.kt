@@ -1,6 +1,6 @@
 package com.example.useCase.impl
 
-import com.example.model.excursion.DetailedEvent
+import com.example.model.DetailedEvent
 import com.example.repository.EventsRepository
 import com.example.useCase.GetDetailsEventsUseCase
 

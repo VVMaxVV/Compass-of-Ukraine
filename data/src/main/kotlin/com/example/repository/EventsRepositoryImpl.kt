@@ -5,7 +5,6 @@ import com.example.mock.EventsFactory
 import com.example.model.DetailedEvent
 import com.example.model.Event
 import com.example.model.Location
-import com.example.model.excursion.DetailedEvent
 
 internal class EventsRepositoryImpl(
     private val eventsFactory: EventsFactory,

@@ -59,7 +59,7 @@ fun BottomBar(navHostController: NavHostController) {
 
     navHostController.addOnDestinationChangedListener { _, destination, _ ->
         isBottomBarVisible = when (destination.route) {
-            "event/{id}" -> false
+            "event/{id}", "excursion/{id}" -> false
             else -> true
         }
     }

@@ -11,5 +11,5 @@ val mockModule = module {
     single { EventsFactory(androidContext()) }
     single { ExcursionFactory(androidContext()) }
     single { DetailsEventFactory(androidContext()) }
-    single { DetailsExcursionFactory() }
+    single { DetailsExcursionFactory(androidContext()) }
 }

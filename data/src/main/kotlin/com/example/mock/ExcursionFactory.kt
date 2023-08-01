@@ -59,10 +59,7 @@ internal class ExcursionFactory(context: Context) {
             description = context.getString(R.string.excursion_1_description),
         ),
     )
-    suspend fun getById(id: Int): Excursion {
-        delay(1000)
-        return kharkivExcursionList.first { it.id == id }
-    }
+
     suspend fun get(location: Location): List<Excursion> {
         delay(1000)
         return when (location) {

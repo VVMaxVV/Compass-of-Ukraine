@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.example.compassofukraine.ui.BottomBar
 import com.example.compassofukraine.ui.theme.CompassOfUkraineTheme
-import com.example.compassofukraine.util.BottomNavGraph
+import com.example.compassofukraine.util.navigation.BottomNavGraph
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

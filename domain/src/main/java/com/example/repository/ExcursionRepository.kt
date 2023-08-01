@@ -6,6 +6,5 @@ import com.example.model.excursion.DetailedExcursion
 
 interface ExcursionRepository {
     suspend fun getExcursion(location: Location): List<Excursion>
-    suspend fun getExcursionById(id: Int): Excursion
     suspend fun getDetailsExcursion(id: Int): DetailedExcursion
 }
