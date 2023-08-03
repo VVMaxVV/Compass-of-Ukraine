@@ -18,7 +18,7 @@ jobs:
       - name: Set up Ruby environment with rvm
         uses: actions/setup-ruby@v1
         with:
-          ruby-version: 2.7.x # Replace with your desired Ruby version
+          ruby-version: 3.2.2
 
       - name: Install rvm
         run: |
@@ -27,7 +27,7 @@ jobs:
           exec $SHELL
 
       - name: Install Fastlane
-        run: gem install fastlane --user-install
+        run: gem install fastlane --user-install -NV
 
       - name: Build and run Fastlane tests
         run: fastlane tests
