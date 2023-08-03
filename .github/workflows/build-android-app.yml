@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install Fastlane
-        run: gem install fastlane -NV
+        run: gem install fastlane -NV --user-install
 
       - name: Build and run Fastlane tests
         run: fastlane tests
