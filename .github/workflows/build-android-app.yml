@@ -15,11 +15,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install Fastlane
-        run: gem install fastlane --user-install
+      - name: Set up Ruby environment with RVM
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7.x # Replace with your desired Ruby version
 
-      - name: Add gem executable directory to PATH
-        run: echo "::add-path::$(ruby -e 'print Gem.user_dir')/bin"
+      - name: Install Fastlane
+        run: gem install fastlane
 
       - name: Build and run Fastlane tests
         run: fastlane tests
