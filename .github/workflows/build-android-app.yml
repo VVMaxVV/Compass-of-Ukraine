@@ -15,11 +15,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install Bundler
-        run: gem install bundler
+      - name: Install Fastlane
+        run: gem install fastlane --user-install
 
-      - name: Install Fastlane using Bundler
-        run: bundle install --path vendor/bundle
+      - name: Add gem executable directory to PATH
+        run: echo "::add-path::$(ruby -e 'print Gem.user_dir')/bin"
 
       - name: Build and run Fastlane tests
-        run: bundle exec fastlane tests
+        run: fastlane tests
