@@ -20,14 +20,8 @@ jobs:
         with:
           ruby-version: 2.7.x # Replace with your desired Ruby version
 
-      - name: Create gemset
-        run: rvm gemset create my_gemset_name # Replace 'my_gemset_name' with your desired gemset name
-
-      - name: Use gemset
-        run: rvm gemset use my_gemset_name # Replace 'my_gemset_name' with your desired gemset name
-
       - name: Install Fastlane
-        run: gem install fastlane
+        run: gem install fastlane --user-install
 
       - name: Build and run Fastlane tests
         run: fastlane tests
