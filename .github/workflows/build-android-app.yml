@@ -1,12 +1,14 @@
 name: build-android-app
 
 on:
+  pull_request:
   push:
     branches:
       - "*"
 
 jobs:
   test:
+    name: Running Units Tests
     runs-on: ubuntu-latest
 
     steps:
