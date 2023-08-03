@@ -15,22 +15,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Ruby environment with rbenv
+      - name: Set up Ruby environment with rvm
         uses: actions/setup-ruby@v1
         with:
           ruby-version: 2.7.x # Replace with your desired Ruby version
 
-      - name: Install rbenv
+      - name: Install rvm
         run: |
-          git clone https://github.com/rbenv/rbenv.git ~/.rbenv
-          echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
-          echo 'eval "$(rbenv init -)"' >> ~/.bashrc
+          curl -sSL https://get.rvm.io | bash -s stable
+          echo 'source "$HOME/.rvm/scripts/rvm"' >> ~/.bashrc
           exec $SHELL
-
-      - name: Install rbenv-build
-        run: |
-          mkdir -p "$(rbenv root)"/plugins
-          git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build
 
       - name: Install Fastlane
         run: gem install fastlane --user-install
