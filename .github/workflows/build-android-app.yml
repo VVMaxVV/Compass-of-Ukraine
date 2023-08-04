@@ -6,28 +6,22 @@ on:
     branches:
       - "*"
 
+
 jobs:
-  test:
-    name: Running Units Tests
+  build-and-test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Set up Ruby environment with rvm
-        uses: actions/setup-ruby@v1
-        with:
-          ruby-version: 3.2.2
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 2.7
 
-      - name: Install rvm
-        run: |
-          curl -sSL https://get.rvm.io | bash -s stable
-          echo 'source "$HOME/.rvm/scripts/rvm"' >> ~/.bashrc
-          exec $SHELL
+    - name: Install dependencies
+      run: bundle install
 
-      - name: Install Fastlane
-        run: gem install fastlane --user-install -NV
-
-      - name: Build and run Fastlane tests
-        run: fastlane tests
+    - name: Run tests
+      run: bundle exec rspec
