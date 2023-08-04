@@ -17,13 +17,13 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 2.7
+          ruby-version: 2.7 # Specify the version that matches your project's Gemfile
 
       - name: Install Bundler
         run: gem install bundler
 
-      - name: Install Fastlane
-        run: gem install fastlane -NV
+      - name: Install project dependencies
+        run: bundle install
 
       - name: Run Fastlane
         run: bundle exec fastlane lane_name
