@@ -25,5 +25,8 @@ jobs:
       - name: Install project dependencies
         run: bundle install
 
+      - name: Make gradlew executable
+        run: chmod +x gradlew
+
       - name: Run Fastlane Tests
         run: bundle exec fastlane test
