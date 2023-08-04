@@ -1,5 +1,5 @@
 package com.example.data
-/*
+
 import com.example.mock.EventsFactory
 import com.example.model.Event
 import com.example.model.Location
@@ -116,4 +116,3 @@ internal class EventFactoryTest {
         }
     }
 }
-*/
