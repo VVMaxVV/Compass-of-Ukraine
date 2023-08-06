@@ -7,26 +7,26 @@ on:
       - "*"
 
 jobs:
-  fastlane:
+  setup:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Ruby
+      - name: Set up Ruby and Bundler
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: 2.7
 
-      - name: Install Bundler
-        run: gem install bundler
-
       - name: Install project dependencies
         run: bundle install
 
-      - name: Make gradlew executable
-        run: chmod +x gradlew
+  fastlane:
+    runs-on: ubuntu-latest
 
-      - name: Run Fastlane Tests
+    needs: setup
+
+    steps:
+      - name: Run Fastlane test lane
         run: bundle exec fastlane test
