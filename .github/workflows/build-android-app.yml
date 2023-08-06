@@ -1,3 +1,11 @@
+name: build-android-app
+
+on:
+  pull_request:
+  push:
+    branches:
+      - "*"
+
 jobs:
   setup:
     runs-on: ubuntu-latest
@@ -35,14 +43,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 2.7
-
-      - name: Install Bundler
-        run: gem install bundler
 
       - name: Set up project dependencies
         run: bundle config path ${{ needs.setup.outputs.bundler-path }}
