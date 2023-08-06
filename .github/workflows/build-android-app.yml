@@ -43,11 +43,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 2.7
-
       - name: Set up project dependencies
         run: bundle config path ${{ needs.setup.outputs.bundler-path }}
 
