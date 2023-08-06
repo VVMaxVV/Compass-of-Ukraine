@@ -1,3 +1,25 @@
 <resources>
     <string name="app_name">Compass of Ukraine</string>
+
+    <string-array name="tags">
+        <item>Free entry</item>
+        <item>Dancing</item>
+        <item>Music</item>
+        <item>Pets friendly</item>
+
+        <item> ffffffff </item>
+        <item> ffffffff </item>
+        <item> ffffffff </item>
+        <item> ffffffff </item>
+        <item> ffffffff </item>
+        <item> ffffffff </item>
+    </string-array>
+    
+    <string-array name="ageRestrictions">
+        <item>0+</item>
+        <item>6+</item>
+        <item>12+</item>
+        <item>16+</item>
+        <item>18+</item>
+    </string-array>
 </resources>
