@@ -43,8 +43,5 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up project dependencies
-        run: bundle config path ${{ needs.setup.outputs.bundler-path }}
-
       - name: Run Fastlane Tests
         run: bundle exec fastlane test
