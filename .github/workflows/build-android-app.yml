@@ -41,7 +41,7 @@ jobs:
 
     steps:
       - name: Install Bundler
-        run: gem install bundler
+        run: gem install bundler --user-install
 
       - name: Debug Bundler installation
         run: bundler -v
