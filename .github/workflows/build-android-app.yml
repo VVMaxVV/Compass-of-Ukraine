@@ -40,12 +40,12 @@ jobs:
     needs: setup
 
     steps:
-       - name: Install Bundler
-         run: gem install bundler
+      - name: Install Bundler
+        run: gem install bundler
 
       - name: Debug Bundler installation
         run: bundler -v
-      
+
       - name: Checkout code
         uses: actions/checkout@v2
 
