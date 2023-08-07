@@ -40,11 +40,11 @@ jobs:
     needs: setup
 
     steps:
-      - name: Install Bundler
-        run: gem install bundler --user-install
-
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Install Bundler
+        run: gem install bundler --user-install
+
       - name: Run Fastlane Tests
-        run: bundle exec fastlane test
+        run: ${{ env.bundler-path }} exec fastlane test
