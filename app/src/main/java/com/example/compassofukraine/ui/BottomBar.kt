@@ -93,8 +93,10 @@ fun RowScope.AddItem(
         alwaysShowLabel = true,
         onClick = {
             navHostController.navigate(screen.route) {
-                popUpTo(navHostController.graph.findStartDestination().id)
-                launchSingleTop = true
+                popUpTo(navHostController.graph.findStartDestination().id) {
+                    saveState = true
+                }
+                restoreState = true
             }
         },
         colors = NavigationBarItemDefaults.colors(
