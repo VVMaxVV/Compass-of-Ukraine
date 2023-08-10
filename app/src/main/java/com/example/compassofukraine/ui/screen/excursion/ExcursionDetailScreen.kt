@@ -9,13 +9,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.material.Shapes
 import androidx.compose.material.Text
@@ -31,28 +29,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.layoutId
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.Role.Companion.Image
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
-import androidx.constraintlayout.compose.ExperimentalMotionApi
-import androidx.constraintlayout.compose.MotionLayout
-import androidx.constraintlayout.compose.MotionScene
-import androidx.constraintlayout.compose.rememberMotionLayoutState
 import com.example.compassofukraine.R
 import com.example.compassofukraine.ui.theme.ButtonSelectedColor
 import com.example.compassofukraine.ui.theme.ButtonUnselectedColor
 import com.example.compassofukraine.util.ResultOf
 import com.example.compassofukraine.util.map.toLatLng
 import com.example.compassofukraine.util.ui.Carousel
-import com.example.compassofukraine.util.ui.DragIndicator
-import com.example.compassofukraine.util.ui.FavoriteButton
+import com.example.compassofukraine.util.ui.DetailedScreenSample
 import com.example.compassofukraine.util.ui.ShowToast
 import com.example.compassofukraine.util.ui.shimmerBrush
 import com.example.compassofukraine.viewModel.excursion.ExcursionDetailViewModel
@@ -64,14 +54,8 @@ import com.google.android.gms.maps.model.PolylineOptions
 import org.koin.androidx.compose.koinViewModel
 import java.net.SocketTimeoutException
 
-@OptIn(ExperimentalMotionApi::class)
 @Composable
 internal fun ExcursionDetailScreen(id: Int) {
-    val motionLayoutState = rememberMotionLayoutState()
-    val context = LocalContext.current
-    val motionScene = remember {
-        context.resources.openRawResource(R.raw.excursion_details).readBytes().decodeToString()
-    }
     val detailedExcursionViewModel =
         koinViewModel<ExcursionDetailViewModel>()
     val excursion by remember { detailedExcursionViewModel.excursion }
@@ -81,49 +65,16 @@ internal fun ExcursionDetailScreen(id: Int) {
         detailedExcursionViewModel.fetchExcursionDetails(id)
     }
 
-    MotionLayout(
-        motionScene = MotionScene(motionScene),
-        motionLayoutState = motionLayoutState,
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.background)
-            .fillMaxHeight()
-    ) {
-        Carousel(
-            listUrl = (excursion as? ResultOf.Success<DetailedExcursion>)?.data?.imagesUrl,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(210.dp)
-                .layoutId("carousel")
-        )
-        Box(
-            modifier = Modifier
-                .background(MaterialTheme.colorScheme.surface)
-                .fillMaxWidth()
-                .layoutId("container_details")
-        ) {
-            Column() {
-                Box(
-                    modifier = Modifier
-                        .padding(top = 12.dp, bottom = 28.dp)
-                        .fillMaxWidth(),
-                    contentAlignment = Alignment.TopCenter
-                ) {
-                    DragIndicator()
-                }
-                ExcursionDetailedContent(excursionDetailedResult = excursion)
-            }
-        }
-        Box(modifier = Modifier.layoutId("button_favorite")) {
-            if (excursion is ResultOf.Success) {
-                FavoriteButton(isFavoriteChecked) {
-                    if (motionLayoutState.currentProgress != 1f) {
-                        detailedExcursionViewModel.updateFavorite(id)
-                    }
-                }
-            }
-        }
-    }
+    DetailedScreenSample(
+        isFavorite = isFavoriteChecked,
+        carouselContent = {
+            Carousel(
+                listUrl = (excursion as? ResultOf.Success<DetailedExcursion>)?.data?.imagesUrl
+            )
+        },
+        bodyContent = { ExcursionDetailedContent(excursionDetailedResult = excursion) },
+        onFavoriteClicked = { detailedExcursionViewModel.updateFavorite(id) }
+    )
 }
 
 @Composable
@@ -139,52 +90,48 @@ fun ExcursionDetailedContent(excursionDetailedResult: ResultOf<DetailedExcursion
 
 @Composable
 fun ExcursionDetailLoaded(excursion: DetailedExcursion) {
-    LazyColumn(modifier = Modifier.fillMaxSize()) {
-        item {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.Top
-            ) {
-                Column {
-                    androidx.compose.material3.Text(
-                        text = excursion.name,
-                        style = MaterialTheme.typography.headlineMedium,
-                        maxLines = 3,
-                        modifier = Modifier.fillMaxWidth(.5f)
-                    )
-                }
-                Column(horizontalAlignment = Alignment.End) {
-                    androidx.compose.material3.Text(
-                        text = excursion.distance.toString() + stringResource(id = R.string.km),
-                        style = MaterialTheme.typography.bodyLarge
-                    )
-                }
-            }
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.Top
+    ) {
+        Column {
             androidx.compose.material3.Text(
-                text = excursion.description,
-                style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier.padding(top = 24.dp, start = 16.dp, end = 16.dp)
+                text = excursion.name,
+                style = MaterialTheme.typography.headlineMedium,
+                maxLines = 3,
+                modifier = Modifier.fillMaxWidth(.5f)
             )
-            when (excursion.type) {
-                ExcursionType.BICYCLE -> MapWithRoute(excursion.bicycleCoordinates.toLatLng())
-                ExcursionType.WALKING -> MapWithRoute(excursion.walkingCoordinates.toLatLng())
-                ExcursionType.CAR -> MapWithRoute(excursion.carCoordinates.toLatLng())
-                ExcursionType.COMBINE -> ExcursionTypeBar(excursion)
-            }
-            Button(
-                modifier = Modifier
-                    .padding(top = 20.dp, bottom = 10.dp)
-                    .padding(horizontal = 10.dp)
-                    .fillMaxWidth(),
-                onClick = {
-                }
-            ) {
-                androidx.compose.material3.Text(text = stringResource(id = R.string.start_excursion))
-            }
         }
+        Column(horizontalAlignment = Alignment.End) {
+            androidx.compose.material3.Text(
+                text = excursion.distance.toString() + stringResource(id = R.string.km),
+                style = MaterialTheme.typography.bodyLarge
+            )
+        }
+    }
+    androidx.compose.material3.Text(
+        text = excursion.description,
+        style = MaterialTheme.typography.bodyMedium,
+        modifier = Modifier.padding(top = 24.dp, start = 16.dp, end = 16.dp)
+    )
+    when (excursion.type) {
+        ExcursionType.BICYCLE -> MapWithRoute(excursion.bicycleCoordinates.toLatLng())
+        ExcursionType.WALKING -> MapWithRoute(excursion.walkingCoordinates.toLatLng())
+        ExcursionType.CAR -> MapWithRoute(excursion.carCoordinates.toLatLng())
+        ExcursionType.COMBINE -> ExcursionTypeBar(excursion)
+    }
+    Button(
+        modifier = Modifier
+            .padding(top = 20.dp, bottom = 10.dp)
+            .padding(horizontal = 10.dp)
+            .fillMaxWidth(),
+        onClick = {
+        }
+    ) {
+        androidx.compose.material3.Text(text = stringResource(id = R.string.start_excursion))
     }
 }
 
@@ -233,6 +180,7 @@ fun ExcursionDetailError(error: Exception) {
         is SocketTimeoutException -> {
             ShowToast(message = stringResource(id = R.string.time_out_exception_toast))
         }
+
         else -> {
             ShowToast(message = stringResource(id = R.string.something_go_wrong_toast))
         }
@@ -264,7 +212,9 @@ private fun ExcursionTypeBar(excursion: DetailedExcursion) {
     val expandedButtonIndex = remember { mutableStateOf(1) }
     Column {
         Row(
-            modifier = Modifier.fillMaxWidth().padding(vertical = 30.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 30.dp),
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
             ExcursionTypeButton(
@@ -295,8 +245,10 @@ private fun ExcursionTypeBar(excursion: DetailedExcursion) {
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
                     .padding(top = 10.dp)
-                    .height(350.dp).width(350.dp)
+                    .height(350.dp)
+                    .width(350.dp)
             )
+
             1 -> {
                 Image(
                     painter = painterResource(id = R.drawable.mocked_walking_map),
@@ -304,9 +256,11 @@ private fun ExcursionTypeBar(excursion: DetailedExcursion) {
                     modifier = Modifier
                         .padding(horizontal = 16.dp)
                         .padding(top = 10.dp)
-                        .height(350.dp).width(350.dp)
+                        .height(350.dp)
+                        .width(350.dp)
                 )
             }
+
             2 -> {
                 Image(
                     painter = painterResource(id = R.drawable.mocked_car_map),
@@ -314,7 +268,8 @@ private fun ExcursionTypeBar(excursion: DetailedExcursion) {
                     modifier = Modifier
                         .padding(horizontal = 16.dp)
                         .padding(top = 10.dp)
-                        .height(350.dp).width(350.dp)
+                        .height(350.dp)
+                        .width(350.dp)
                 )
             }
         }
@@ -352,7 +307,9 @@ private fun ExcursionTypeButton(
                     color = backgroundColor,
                     shape = Shapes().medium.copy(all = CornerSize(16.dp))
                 )
-                .height(120.dp).width(animatedWidthDp).clickable {
+                .height(120.dp)
+                .width(animatedWidthDp)
+                .clickable {
                     expandedButtonIndex.value = buttonIndex
                 }
         ) {

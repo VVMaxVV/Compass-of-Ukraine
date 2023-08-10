@@ -10,9 +10,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun DragIndicator() {
+fun DragIndicator(modifier: Modifier = Modifier) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .background(MaterialTheme.colorScheme.onSurfaceVariant, RoundedCornerShape(3.dp))
             .size(width = 60.dp, height = 6.dp)
     )

@@ -9,26 +9,26 @@
         start: ['parent', 'start'],
         alpha: 1,
       },
-      container_details: {
+      container_body: {
         width: 'spread',
         height: 'spread',
         top: ['carousel', 'bottom'],
         start: ['parent', 'start'],
-        bottom: ['parent', 'bottom'],
+        bottom: ['button_open_map', 'top'],
         end: ['parent', 'end'],
       },
       button_favorite: {
         width: 48,
         height: 48,
-        end: ['container_details', 'end', 16],
-        bottom: ['container_details', 'top', -24],
+        end: ['container_body', 'end', 16],
+        bottom: ['container_body', 'top', -24],
         alpha: 1,
       },
       button_open_map: {
         width: 'spread',
-        height: 48,
+        height: 'wrap',
         end: ['parent', 'end', 16],
-        bottom: ['parent', 'bottom', 20],
+        bottom: ['parent', 'bottom'],
         start: ['parent', 'start', 16],
       }
     },
@@ -41,26 +41,26 @@
         start: ['parent', 'start'],
         alpha: 0,
       },
-      container_details: {
+      container_body: {
         width: 'spread',
         height: 'spread',
         top: ['parent', 'top'],
         start: ['parent', 'start'],
-        bottom: ['parent', 'bottom'],
+        bottom: ['button_open_map', 'top'],
         end: ['parent', 'end']
       },
       button_favorite: {
         width: 48,
         height: 48,
-        end: ['container_details', 'end', 16],
-        bottom: ['container_details', 'top', -24],
+        end: ['container_body', 'end', 16],
+        bottom: ['container_body', 'top', -24],
         alpha: 0,
       },
       button_open_map: {
         width: 'spread',
-        height: 48,
+        height: 'wrap',
         end: ['parent', 'end', 16],
-        bottom: ['parent', 'bottom', 20],
+        bottom: ['parent', 'bottom'],
         start: ['parent', 'start', 16],
       }
     },
@@ -70,10 +70,11 @@
       from: 'start',
       to: 'end',
       onSwipe: {
-        anchor: 'container_details',
+        anchor: 'container_body',
         direction: 'up',
         side: 'top',
-      }
-    }
+        mode: 'velocity'
+      },
+    },
   }
 }
