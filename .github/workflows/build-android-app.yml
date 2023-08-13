@@ -1,7 +1,6 @@
 name: build-android-app
 
 on:
-  pull_request:
   push:
     branches:
       - "*"
@@ -45,3 +44,16 @@ jobs:
 
       - name: Run Fastlane Tests
         run: ${{ env.bundler-path }} exec fastlane test
+
+  linting:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      - name: Ktlint
+        run: ./gradlew ktlintCheck
