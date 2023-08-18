@@ -36,7 +36,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
-
 import com.example.compassofukraine.ui.theme.ButtonSelectedColor
 import com.example.compassofukraine.ui.theme.ButtonUnselectedColor
 import com.example.compassofukraine.util.ResultOf
