@@ -15,6 +15,7 @@ import com.example.compassofukraine.util.navigation.BottomNavGraph
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
             CompassOfUkraineTheme {
                 val navHostController = rememberNavController()
