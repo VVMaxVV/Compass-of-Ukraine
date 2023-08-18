@@ -1,7 +1,7 @@
 name: build-android-app
 
 on:
-  pull_request:
+  push:
     branches:
       - "*"
 
