@@ -70,8 +70,5 @@ jobs:
       - name: Make gradlew executable
         run: chmod +x gradlew
 
-      - name: Set SKIP_GOOGLE_SERVICES environment variable
-        run: echo "SKIP_GOOGLE_SERVICES=true" >> $GITHUB_ENV
-
       - name: Build Android Debug APK
-        run: ./gradlew assembleDebug
+        run: ./gradlew assembleDebug -PskipGoogleServices=true
