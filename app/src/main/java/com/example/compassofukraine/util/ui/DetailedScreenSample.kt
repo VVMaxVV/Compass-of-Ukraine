@@ -34,7 +34,7 @@ import androidx.constraintlayout.compose.ExperimentalMotionApi
 import androidx.constraintlayout.compose.MotionLayout
 import androidx.constraintlayout.compose.MotionScene
 import androidx.constraintlayout.compose.layoutId
-import com.example.compassofukraine.R
+import compass.of.ukraine.R
 
 @OptIn(ExperimentalMaterialApi::class, ExperimentalMotionApi::class)
 @Composable

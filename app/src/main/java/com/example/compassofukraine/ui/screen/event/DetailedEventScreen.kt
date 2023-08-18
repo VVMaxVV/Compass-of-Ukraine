@@ -24,7 +24,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.compassofukraine.R
+
 import com.example.compassofukraine.ui.theme.CompassOfUkraineTheme
 import com.example.compassofukraine.util.ResultOf
 import com.example.compassofukraine.util.openMapWithDirections
@@ -35,6 +35,7 @@ import com.example.compassofukraine.util.ui.shimmerBrush
 import com.example.compassofukraine.viewModel.event.DetailedEventViewModel
 import com.example.model.DetailedEvent
 import com.example.model.EventTime
+import compass.of.ukraine.R
 import org.koin.androidx.compose.koinViewModel
 import java.lang.Exception
 import java.net.SocketTimeoutException

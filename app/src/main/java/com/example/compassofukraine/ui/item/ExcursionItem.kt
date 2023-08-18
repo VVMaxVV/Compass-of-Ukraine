@@ -18,9 +18,9 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.example.compassofukraine.R
 import com.example.model.Excursion
 import com.example.model.ExcursionType
+import compass.of.ukraine.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

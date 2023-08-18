@@ -1,6 +1,6 @@
 package com.example.compassofukraine.util
 
-import com.example.compassofukraine.R
+import compass.of.ukraine.R
 
 sealed class BottomBarMenu(
     val route: String,
