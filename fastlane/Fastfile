@@ -3,6 +3,7 @@ default_platform(:android)
 platform :android do
   desc "Runs all the tests"
   lane :test do
+    ENV['enableGoogleServices'] = 'false'
     gradle(task: "test")
   end
 
