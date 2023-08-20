@@ -55,8 +55,27 @@ jobs:
       - name: Make gradlew executable
         run: chmod +x gradlew
 
-      - name: Copy google-services.json
-        run: echo "$GOOGLE_SERVICES_JSON" > app/google-services.json
+      - name: Create dummy google-services.json
+        run: |
+          echo '{
+            "project_info": {
+              "project_number": "1234567890",
+              "firebase_url": "https://your-project-id.firebaseio.com",
+              "project_id": "your-project-id",
+              "storage_bucket": "your-project-id.appspot.com"
+            },
+            "client": [
+              {
+                "client_info": {
+                  "mobilesdk_app_id": "1:1234567890:android:abcdef",
+                  "android_client_info": {
+                    "package_name": "com.example.app"
+                  }
+                }
+              }
+            ],
+            "configuration_version": "1"
+          }' > app/google-services.json
 
       - name: Run Fastlane Tests
         run: ${{ env.bundler-path }} exec fastlane test
