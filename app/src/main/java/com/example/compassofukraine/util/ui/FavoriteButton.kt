@@ -7,8 +7,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.compassofukraine.R
 import com.example.compassofukraine.ui.theme.CompassOfUkraineTheme
+import compass.of.ukraine.R
 
 @Composable
 fun FavoriteButton(isChecked: Boolean, onClick: (Boolean) -> Unit) {

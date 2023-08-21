@@ -36,7 +36,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
-import com.example.compassofukraine.R
 import com.example.compassofukraine.ui.theme.ButtonSelectedColor
 import com.example.compassofukraine.ui.theme.ButtonUnselectedColor
 import com.example.compassofukraine.util.ResultOf
@@ -51,6 +50,7 @@ import com.example.model.excursion.DetailedExcursion
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.PolylineOptions
+import compass.of.ukraine.R
 import org.koin.androidx.compose.koinViewModel
 import java.net.SocketTimeoutException
 

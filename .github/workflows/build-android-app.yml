@@ -1,7 +1,7 @@
 name: build-android-app
 
 on:
-  push:
+  pull_request:
     branches:
       - "*"
 
@@ -30,21 +30,6 @@ jobs:
       - name: Export Bundler path
         run: echo "bundler-path=$(bundle which bundler)" >> $GITHUB_ENV
 
-  fastlane:
-    runs-on: ubuntu-latest
-
-    needs: setup
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Make gradlew executable
-        run: chmod +x gradlew
-
-      - name: Run Fastlane Tests
-        run: ${{ env.bundler-path }} exec fastlane test
-
   linting:
     runs-on: ubuntu-latest
 
@@ -57,3 +42,26 @@ jobs:
 
       - name: Ktlint
         run: ./gradlew ktlintCheck
+
+  fastlane:
+    runs-on: ubuntu-latest
+
+    needs: setup
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Make gradlew executable
+        run: chmod +x gradlew
+
+      - name: Create file
+        run: cat /home/runner/work/Compass-of-Ukraine/Compass-of-Ukraine/app/google-services.json | base64
+
+      - name: Putting data
+        env:
+          DATA: ${{ secrets.GOOGLE_SERVICES_JSON }}
+        run: echo $DATA > /home/runner/work/Compass-of-Ukraine/Compass-of-Ukraine/app/google-services.json
+
+      - name: Run Fastlane Tests
+        run: ${{ env.bundler-path }} exec fastlane test

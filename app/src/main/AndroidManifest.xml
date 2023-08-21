@@ -9,7 +9,7 @@
     </queries>
 
     <application
-        android:name=".util.MainApplication"
+        android:name="com.example.compassofukraine.util.MainApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -20,7 +20,7 @@
         android:theme="@style/Theme.CompassOfUkraine"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.compassofukraine.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.CompassOfUkraine">
