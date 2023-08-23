@@ -4,22 +4,24 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.Icon
 import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.pullrefresh.PullRefreshIndicator
 import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.material.rememberModalBottomSheetState
-import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -30,12 +32,14 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.compassofukraine.ui.EventFilterFragment
+import com.example.compassofukraine.R
+import com.example.compassofukraine.ui.EventFilterScreen
 import com.example.compassofukraine.ui.item.EventItem
 import com.example.compassofukraine.viewModel.EventsViewModel
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
@@ -66,6 +70,26 @@ internal fun EventsScreen() {
             verticalArrangement = Arrangement.spacedBy(16.dp),
             state = scrollState
         ) {
+            item() {
+                TextButton(
+                    onClick = {
+                        bottomSheetScope.launch {
+                            if (bottomSheetState.isVisible) { bottomSheetState.hide() } else { bottomSheetState.show() }
+                        }
+                    }
+                ) {
+                    Icon(
+                        imageVector = ImageVector.vectorResource(id = R.drawable.ic_filter),
+                        contentDescription = "ic_filter"
+                    )
+                    Text(
+                        text = "Filter",
+                        style = MaterialTheme.typography.labelMedium,
+                        modifier = Modifier.padding(start = 4.dp)
+                    )
+                }
+            }
+
             items(eventsList) {
                 EventItem(event = it) { id ->
 //                    TODO("Open PDP by id")
@@ -80,25 +104,15 @@ internal fun EventsScreen() {
         )
     }
 
-    Box{
+    Box {
         ModalBottomSheetLayout(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight(),
             sheetState = bottomSheetState,
             sheetShape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp),
-            sheetContent = { EventFilterFragment(state = bottomSheetState, scope = bottomSheetScope)}
-        ) {
-            Button(
-                onClick = {
-                    bottomSheetScope.launch {
-                        if (bottomSheetState.isVisible) bottomSheetState.hide()
-                        else bottomSheetState.show()
-                    }
-                }
-            ) {
-                Text(text = "Filter")
-            }
-        }
-
+            sheetContent = { EventFilterScreen(state = bottomSheetState, scope = bottomSheetScope) }
+        ) {}
     }
 
     LaunchedEffect(isLoaded) {

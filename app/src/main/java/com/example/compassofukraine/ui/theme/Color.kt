@@ -12,3 +12,5 @@ val Pink40 = Color(0xFF7D5260)
 
 val Yellow = Color(0xFFFFD700)
 val Grey = Color(0xFF9B9B9B)
+
+var inactiveTag = Color(0xFF9B9B9B)

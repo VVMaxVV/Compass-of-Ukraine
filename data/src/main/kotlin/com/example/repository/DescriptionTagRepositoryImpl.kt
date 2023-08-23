@@ -4,8 +4,7 @@ import com.example.mock.DescriptionTagFactory
 import com.example.model.DescriptionTag
 
 internal class DescriptionTagRepositoryImpl(
-    private val tagsFactory: DescriptionTagFactory
-): DescriptionTagRepository {
-
-    override suspend fun getDescriptionTags(): List<DescriptionTag> = tagsFactory.get()
+    private val descriptionTagFactory: DescriptionTagFactory
+) : DescriptionTagRepository {
+    override suspend fun getDescriptionTags(): List<DescriptionTag> = descriptionTagFactory.get()
 }

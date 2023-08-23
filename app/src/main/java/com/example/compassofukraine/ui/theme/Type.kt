@@ -32,5 +32,12 @@ fun getTypography() = Typography(
         fontSize = 10.sp,
         lineHeight = 16.sp,
         letterSpacing = 0.5.sp
+    ),
+    labelMedium = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.Medium,
+        fontSize = 14.sp,
+        lineHeight = 16.sp,
+        color = MaterialTheme.colorScheme.onSurfaceVariant
     )
 )
